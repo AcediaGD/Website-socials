@@ -4,14 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   swipeUp.addEventListener("click", function (event) {
     event.stopPropagation(); // Prevents immediate closing
-    links.style.display = "flex"; // Show menu
+    links.classList.add("active"); // Slide up
     swipeUp.style.display = "none"; // Hide "Tap to see socials"
   });
 
   document.body.addEventListener("click", function (event) {
-    if (!links.contains(event.target) && links.style.display === "flex") {
-      links.style.display = "none"; // Hide menu
-      swipeUp.style.display = "block"; // Show "Tap to see socials"
+    if (!links.contains(event.target) && links.classList.contains("active")) {
+      links.classList.remove("active"); // Slide down
+      setTimeout(() => {
+        swipeUp.style.display = "block"; // Show "Tap to see socials" after animation
+      }, 500); // Matches CSS transition duration
     }
   });
 
