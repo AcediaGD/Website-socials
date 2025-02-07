@@ -1,4 +1,4 @@
-/* Basic Reset */
+/* Metal band theme with dark greys and accessible contrast */
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +6,11 @@
 }
 
 body {
-  font-family: 'Blackletter', serif; /* Metal-style font */
-  background: #2B2B2B url('roses-bg.png') repeat; /* Dark roses */
+  font-family: 'Blackletter', serif;
+  background-color: #1a1a1a;
+  background-image: url('roses-bg.png'); /* Add a grey rose pattern */
+  background-size: cover;
+  background-blend-mode: multiply;
   color: white;
   text-align: center;
 }
@@ -22,52 +25,88 @@ body {
   position: relative;
 }
 
-/* Metal-styled Title */
 h1 {
-  font-size: 2.8em;
+  font-size: 3em;
   font-weight: bold;
   text-transform: uppercase;
-  text-shadow: 2px 2px 8px rgba(255, 0, 0, 0.8); /* Red glow */
+  letter-spacing: 2px;
+  color: #ff4444;
 }
 
-/* Fire Animation */
+p {
+  font-size: 1.5em;
+}
+
 .swipe-up {
   position: absolute;
   bottom: 20px;
   font-size: 1.8em;
   cursor: pointer;
   animation: bounce 1.5s infinite;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
-.swipe-up:active {
-  animation: fire-glow 0.5s ease-in-out infinite alternate;
-}
-
-/* Bounce Animation */
 @keyframes bounce {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-/* Fire Glow Effect */
-@keyframes fire-glow {
-  0% { text-shadow: 0 0 5px red, 0 0 10px orange, 0 0 15px yellow; }
-  100% { text-shadow: 0 0 10px orange, 0 0 20px yellow, 0 0 25px red; }
+/* Fire animation around Tap button */
+.fire-animation {
+  position: relative;
+  color: #ffcc00;
+  text-shadow: 0 0 20px #ff6600, 0 0 40px #ff3300;
 }
 
-/* Social Links */
+.fire-animation::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(255, 102, 0, 0.8), rgba(255, 0, 0, 0));
+  opacity: 0.7;
+  border-radius: 50%;
+  animation: flicker 0.8s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0.9; transform: scale(1.1); }
+}
+
+/* Socials menu */
 .links {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(20, 20, 20, 0.95);
+  bottom: -100%;
+  width: 90%;
+  max-width: 400px;
+  background-color: #222;
+  border: 2px solid #ff4444;
   padding: 20px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  box-shadow: 0 -2px 15px rgba(255, 0, 0, 0.5);
-  display: none;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #ff0000;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  transition: bottom 0.5s ease-in-out;
+}
+
+.links.active {
+  bottom: 10px;
+}
+
+.links p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #ffcc00;
 }
 
 .link {
@@ -77,13 +116,22 @@ h1 {
   margin: 10px 0;
   display: flex;
   align-items: center;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.3s;
 }
 
 .link:hover {
-  color: #ff4500; /* Fiery Orange */
+  color: #ffcc00;
 }
 
 .link i {
-  margin-right: 8px;
+  margin-right: 10px;
+}
+
+/* Accessible contrast for colorblind users */
+a, .link {
+  color: #ffcc00;
+}
+
+a:hover {
+  color: #ff4444;
 }
