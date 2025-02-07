@@ -1,18 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const swipeUp = document.getElementById("swipe-up");
   const links = document.getElementById("links");
-  const container = document.querySelector(".container");
 
-  swipeUp.addEventListener("click", function() {
-    links.style.display = "flex"; // Show the social links
-    swipeUp.style.display = "none"; // Hide the swipe-up text
+  swipeUp.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevents immediate closing
+    links.style.display = "flex"; // Show menu
+    swipeUp.style.display = "none"; // Hide "Tap to see socials"
   });
 
-  // Close menu when tapping outside
-  container.addEventListener("click", function(event) {
+  document.body.addEventListener("click", function (event) {
     if (!links.contains(event.target) && links.style.display === "flex") {
-      links.style.display = "none"; // Hide links
+      links.style.display = "none"; // Hide menu
       swipeUp.style.display = "block"; // Show "Tap to see socials"
     }
+  });
+
+  // Prevent menu from closing when clicking inside it
+  links.addEventListener("click", function (event) {
+    event.stopPropagation();
   });
 });
